@@ -63,6 +63,17 @@
             animation: bounce 2s ease-in-out infinite;
         }
         
+        .mascot {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 10px 30px rgba(255,107,157,0.3);
+            margin-bottom: 20px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
@@ -316,7 +327,7 @@
     <div class="container">
         <!-- Hero -->
         <section class="hero">
-            <div class="logo">👗✨</div>
+            <img src="mascot.jpg" alt="StyleBuddy 吉祥物" class="mascot">
             <h1>StyleBuddy</h1>
             <p class="subtitle">你的 AI 穿搭闺蜜</p>
             <p class="tagline">💕 让穿搭变得更简单，让美丽变得更自然 💕</p>
