@@ -41,6 +41,67 @@
             50% { transform: translateY(-20px) rotate(10deg); opacity: 0.8; }
         }
         
+        /* 图片展示 */
+        .gallery {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 30px;
+            padding: 50px;
+            margin: 60px 0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+        }
+        
+        .gallery h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 40px;
+        }
+        
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .image-item {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            aspect-ratio: 3/4;
+        }
+        
+        .image-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .image-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .show-more {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .show-more-btn {
+            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .show-more-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,107,157,0.4);
+        }
+        
         /* 主容器 */
         .container {
             max-width: 1200px;
@@ -413,6 +474,18 @@
             </div>
         </div>
 
+        <!-- 图片展示 -->
+        <div class="gallery">
+            <h2>👗 穿搭参考图库</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 30px;">50+ 精选搭配参考，激发你的穿搭灵感</p>
+            <div class="image-grid" id="imageGrid">
+                <!-- 图片将通过 JS 动态加载 -->
+            </div>
+            <div class="show-more">
+                <button class="show-more-btn" onclick="showMoreImages()">加载更多</button>
+            </div>
+        </div>
+
         <!-- 安装方式 -->
         <section id="install" class="examples" style="text-align: center;">
             <h2>🚀 开始使用</h2>
@@ -474,6 +547,42 @@
             el.style.transition = 'all 0.6s ease';
             observer.observe(el);
         });
+
+        // 图片展示功能
+        const imageFiles = [
+            'casual_001.jpg', 'casual_002.jpg', 'casual_003.jpg', 'casual_004.jpg', 'casual_005.jpg',
+            'casual_006.jpg', 'casual_007.jpg', 'casual_008.jpg', 'casual_009.jpg', 'casual_010.jpg',
+            'casual_011.jpg', 'casual_012.jpg', 'casual_013.jpg', 'casual_014.jpg', 'casual_015.jpg',
+            'casual_016.jpg', 'casual_017.jpg', 'casual_018.jpg', 'casual_019.jpg', 'casual_020.jpg'
+        ];
+        let currentImageIndex = 0;
+        const imagesPerLoad = 8;
+
+        function loadImages() {
+            const grid = document.getElementById('imageGrid');
+            const endIndex = Math.min(currentImageIndex + imagesPerLoad, imageFiles.length);
+            
+            for (let i = currentImageIndex; i < endIndex; i++) {
+                const div = document.createElement('div');
+                div.className = 'image-item';
+                div.innerHTML = `<img src="images/${imageFiles[i]}" alt="穿搭参考 ${i+1}" loading="lazy">`;
+                grid.appendChild(div);
+            }
+            
+            currentImageIndex = endIndex;
+            
+            // 如果所有图片都加载完了，隐藏按钮
+            if (currentImageIndex >= imageFiles.length) {
+                document.querySelector('.show-more').style.display = 'none';
+            }
+        }
+
+        function showMoreImages() {
+            loadImages();
+        }
+
+        // 初始加载
+        loadImages();
     </script>
 </body>
 </html>
