@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StyleBuddy - 你的 AI 穿搭闺蜜</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #fff5f7 50%, #f8f0ff 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* 漂浮的心形背景 */
+        .hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.6;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+            50% { transform: translateY(-20px) rotate(10deg); opacity: 0.8; }
+        }
+        
+        /* 主容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Hero 区域 */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 80px;
+            margin-bottom: 10px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 50%, #f8b500 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            color: #888;
+            margin-bottom: 30px;
+        }
+        
+        .tagline {
+            font-size: 1.3rem;
+            color: #ff6b9d;
+            font-weight: 600;
+            margin-bottom: 40px;
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50px;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.2);
+        }
+        
+        /* CTA 按钮 */
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.5);
+        }
+        
+        .version-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #666;
+            margin-left: 10px;
+        }
+        
+        /* 功能卡片 */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 24px;
+            padding: 35px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: #ff6b9d;
+            box-shadow: 0 20px 50px rgba(255, 107, 157, 0.15);
+        }
+        
+        .feature-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.4rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* 使用示例 */
+        .examples {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 30px;
+            padding: 50px;
+            margin: 60px 0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+        }
+        
+        .examples h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 40px;
+        }
+        
+        .chat-demo {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .message {
+            display: flex;
+            align-items: flex-end;
+            margin-bottom: 20px;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .message.user {
+            justify-content: flex-end;
+        }
+        
+        .message.buddy {
+            justify-content: flex-start;
+        }
+        
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin: 0 10px;
+        }
+        
+        .message.user .avatar {
+            background: #e3f2fd;
+            order: 2;
+        }
+        
+        .message.buddy .avatar {
+            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+        }
+        
+        .bubble {
+            padding: 15px 20px;
+            border-radius: 20px;
+            max-width: 70%;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .message.user .bubble {
+            background: #ff6b9d;
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .message.buddy .bubble {
+            background: white;
+            color: #333;
+            border: 2px solid #ffe4ec;
+            border-bottom-left-radius: 5px;
+        }
+        
+        /* 统计数据 */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+            margin: 50px 0;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stat-label {
+            color: #888;
+            font-size: 1rem;
+            margin-top: 5px;
+        }
+        
+        /* 页脚 */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        .footer a {
+            color: #ff6b9d;
+            text-decoration: none;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .subtitle { font-size: 1.1rem; }
+            .features { grid-template-columns: 1fr; }
+            .stats { gap: 30px; }
+            .examples { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 漂浮的心形 -->
+    <div class="hearts">
+        <span class="heart" style="left: 10%; top: 20%; animation-delay: 0s;">💕</span>
+        <span class="heart" style="left: 20%; top: 60%; animation-delay: 1s;">💖</span>
+        <span class="heart" style="left: 80%; top: 30%; animation-delay: 2s;">💗</span>
+        <span class="heart" style="left: 70%; top: 70%; animation-delay: 3s;">💝</span>
+        <span class="heart" style="left: 30%; top: 80%; animation-delay: 4s;">💘</span>
+        <span class="heart" style="left: 90%; top: 50%; animation-delay: 5s;">💓</span>
+    </div>
+
+    <div class="container">
+        <!-- Hero -->
+        <section class="hero">
+            <div class="logo">👗✨</div>
+            <h1>StyleBuddy</h1>
+            <p class="subtitle">你的 AI 穿搭闺蜜</p>
+            <p class="tagline">💕 让穿搭变得更简单，让美丽变得更自然 💕</p>
+            <br>
+            <a href="#install" class="cta-button">
+                <span>🚀</span>
+                <span>立即安装</span>
+            </a>
+            <span class="version-badge">v0.3.2 Free</span>
+        </section>
+
+        <!-- 统计数据 -->
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number">300+</div>
+                <div class="stat-label">搭配模板</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">50</div>
+                <div class="stat-label">参考图库</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">30+</div>
+                <div class="stat-label">场景规则</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">∞</div>
+                <div class="stat-label">搭配灵感</div>
+            </div>
+        </div>
+
+        <!-- 功能展示 -->
+        <div class="features">
+            <div class="feature-card">
+                <span class="feature-icon">📸</span>
+                <h3>智能衣橱管理</h3>
+                <p>拍照或文字录入衣服，自动分类整理。支持颜色、材质、季节智能识别，让衣橱井井有条。</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">👗</span>
+                <h3>每日穿搭推荐</h3>
+                <p>根据天气、场合、心情智能推荐3套搭配方案。告别"今天穿什么"的选择困难症！</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🛍️</span>
+                <h3>逛街种草咨询</h3>
+                <p>看中衣服先问她！拍照发送即可获得专业建议，避免冲动消费，买对不买贵。</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">📊</span>
+                <h3>衣橱分析报告</h3>
+                <p>深度分析衣橱配置，发现穿搭盲区，给出优化建议。让你的衣橱更实用、更时尚。</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🔄</span>
+                <h3>一衣多穿</h3>
+                <p>发掘单品的多种搭配可能，提高衣服利用率，省钱又环保。</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🔒</span>
+                <h3>本地隐私保护</h3>
+                <p>所有数据存储在本地，不上传云端。你的衣橱，只有你知道。</p>
+            </div>
+        </div>
+
+        <!-- 使用示例 -->
+        <div class="examples">
+            <h2>💬 看看你们会怎么聊天</h2>
+            <div class="chat-demo">
+                <div class="message user">
+                    <div class="avatar">👤</div>
+                    <div class="bubble">今天穿什么？</div>
+                </div>
+                <div class="message buddy">
+                    <div class="avatar">🌸</div>
+                    <div class="bubble">今天北京 15°C 多云，推荐3套搭配：<br><br>🌟 <b>通勤优雅风</b><br>米色风衣 + 白色衬衫 + 深蓝牛仔裤<br><br>🌟 <b>休闲舒适风</b><br>灰色卫衣 + 黑色运动裤<br><br>🌟 <b>温柔知性风</b><br>粉色针织衫 + 白色半裙</div>
+                </div>
+                <div class="message user">
+                    <div class="avatar">👤</div>
+                    <div class="bubble">录入一件红色连衣裙，ZARA的，适合约会穿</div>
+                </div>
+                <div class="message buddy">
+                    <div class="avatar">🌸</div>
+                    <div class="bubble">✨ 已添加到衣橱！<br><br>📍 红色连衣裙<br>🎨 颜色：红色<br>🏷️ 品牌：ZARA<br>💕 场合：约会<br><br>需要我推荐搭配方案吗？</div>
+                </div>
+                <div class="message user">
+                    <div class="avatar">👤</div>
+                    <div class="bubble">[图片] 这件风衣值得买吗？</div>
+                </div>
+                <div class="message buddy">
+                    <div class="avatar">🌸</div>
+                    <div class="bubble">🛍️ 种草分析：<br><br>✅ <b>值得入手的理由：</b><br>• 卡其色百搭，适配你衣橱80%单品<br>• 经典版型不易过时<br><br>⚠️ <b>需要注意：</b><br>• 你已有一件类似风衣<br>• 建议先"回家对比"再决定<br><br>要我先帮你加入种草清单吗？</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 安装方式 -->
+        <section id="install" class="examples" style="text-align: center;">
+            <h2>🚀 开始使用</h2>
+            <p style="color: #666; margin-bottom: 30px;">在 OpenClaw 中运行以下命令，即可安装 StyleBuddy</p>
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 15px; font-family: monospace; font-size: 1.1rem; color: #333; display: inline-block; margin-bottom: 30px;">
+                clawhub install stylebuddy
+            </div>
+            <br>
+            <a href="#" class="cta-button" onclick="alert('请在 OpenClaw 终端中运行：clawhub install stylebuddy'); return false;">
+                <span>💫</span>
+                <span>复制安装命令</span>
+            </a>
+        </section>
+
+        <!-- 页脚 -->
+        <footer class="footer">
+            <p>Made with 💕 by StyleBuddy Team</p>
+            <p style="margin-top: 10px;">Published on <a href="https://clawhub.com">ClawHub</a> · Free Forever</p>
+        </footer>
+    </div>
+
+    <script>
+        // 添加更多漂浮的心形
+        function createHearts() {
+            const hearts = document.querySelector('.hearts');
+            const heartSymbols = ['💕', '💖', '💗', '💝', '💘', '💓'];
+            
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('span');
+                heart.className = 'heart';
+                heart.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.top = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 6 + 's';
+                heart.style.fontSize = (15 + Math.random() * 20) + 'px';
+                hearts.appendChild(heart);
+            }
+        }
+        createHearts();
+
+        // 滚动动画
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .stat-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

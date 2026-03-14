@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>StyleBuddy 宣传海报</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            background: #f5f5f5;
+            font-family: 'Nunito', sans-serif;
+        }
+        .poster {
+            width: 1200px;
+            height: 630px;
+            background: linear-gradient(135deg, #ffeef8 0%, #fff5f7 50%, #f8f0ff 100%);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+        .heart {
+            position: absolute;
+            font-size: 40px;
+            opacity: 0.6;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 100%;
+        }
+        .logo-icon {
+            font-size: 80px;
+            margin-bottom: 10px;
+        }
+        h1 {
+            font-size: 72px;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            font-size: 32px;
+            color: #888;
+            margin-bottom: 30px;
+        }
+        .cta {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+            color: white;
+            padding: 18px 50px;
+            border-radius: 50px;
+            font-size: 24px;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(255,107,157,0.4);
+        }
+        .features {
+            margin-top: 40px;
+            font-size: 22px;
+            color: #666;
+        }
+        .footer {
+            position: absolute;
+            bottom: 30px;
+            width: 100%;
+            text-align: center;
+            font-size: 18px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div class="poster">
+        <span class="heart" style="top: 50px; left: 100px; animation-delay: 0s;">💕</span>
+        <span class="heart" style="top: 80px; left: 200px; animation-delay: 0.5s;">💖</span>
+        <span class="heart" style="top: 60px; right: 150px; animation-delay: 1s;">💗</span>
+        <span class="heart" style="top: 100px; right: 250px; animation-delay: 1.5s;">🌸</span>
+        <span class="heart" style="bottom: 150px; left: 80px; animation-delay: 2s;">✨</span>
+        <span class="heart" style="bottom: 180px; right: 100px; animation-delay: 2.5s;">💝</span>
+        
+        <div class="content">
+            <div class="logo-icon">👗✨</div>
+            <h1>StyleBuddy</h1>
+            <p class="subtitle">你的 AI 穿搭闺蜜</p>
+            <div class="cta">🚀 clawhub install stylebuddy</div>
+            <p class="features">📸 智能衣橱 · 👗 每日推荐 · 🛍️ 种草咨询 · 📊 衣橱分析</p>
+        </div>
+        
+        <div class="footer">🌸 v0.3.2 Free · Made with 💕 · Published on ClawHub</div>
+    </div>
+</body>
+</html>
